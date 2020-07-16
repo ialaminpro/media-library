@@ -1,0 +1,5 @@
+
+{
+    "API_BASE_URL":"localhost/web-developer/gallery/api/v1",
+    "API_GET_GALLERY_URL": "http://localhost/web-developer/api/v1/gallery"
+}
