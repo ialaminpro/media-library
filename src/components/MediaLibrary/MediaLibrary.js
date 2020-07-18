@@ -5,14 +5,36 @@ import 'font-awesome/css/font-awesome.min.css';
 import axios from 'axios';
 import config from '../config.json';
 import Photo from '../Photo/Photo';
+import UploadImage from "./UploadImage";
 
 class MediaLibrary extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            photos: []
+            photos: [],
         }
+        this.updateGallery = this.updateGallery.bind(this);
     }
+
+    updateGallery(){
+
+        axios
+            .get(config.API_GET_GALLERY_URL)
+            .then(response => {
+                return response;
+            })
+            .then(json => {
+
+                if (json.status==200) {
+                    this.setState({
+                        photos: json.data
+                    });
+                }
+            })
+            .catch(error => {
+            });
+    }
+
     componentDidMount () {
         axios
             .get(config.API_GET_GALLERY_URL)
@@ -34,19 +56,23 @@ class MediaLibrary extends React.Component {
     render() {
         const { photos } = this.state
         return (
-            <div className="row px-5 py-5">
-                <div className="col-md-12">
-                    <h6>9 Items</h6>
+            <div>
+                <div className="row px-5 py-5">
+                    <div className="col-md-12">
+                        <h6>9 Items</h6>
+                    </div>
+                    {
+                        photos.map(photo => <Photo
+                            key={photo.id}
+                            photo={photo}>
+                        </Photo>)
+                    }
+
+
                 </div>
-                {
-                    photos.map(photo => <Photo
-                        key={photo.id}
-                        photo={photo}>
-                    </Photo>)
-                }
-
-
+                <UploadImage action={this.updateGallery}/>
             </div>
+
 
         );
 

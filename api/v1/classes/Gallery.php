@@ -6,7 +6,7 @@ class Gallery extends Helper
 	/**
 	 * @var string Directory with photos
 	 */
-    private $directory = 'photos';
+    private $directory = 'photos/originals';
 	/**
 	 * @var int Number of columns in HTML table with thumbnails
 	 */
@@ -28,9 +28,10 @@ class Gallery extends Helper
     public function load()
     {
         $directory = dir($this->directory);
+
         while ($item = $directory->read())
         {
-			if (strpos($item, '_thumb.'))
+			if (strpos($item, '.'))
 			{
 				$this->files[] = $item;
 			}

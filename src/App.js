@@ -4,7 +4,6 @@ import './App.css';
 import MediaLibrary from './components/MediaLibrary/MediaLibrary';
 import NotFound from './components/NotFound/NotFound';
 import Header from './components/Header/Header';
-import UploadImage from "./components/MediaLibrary/UploadImage";
 
 function App() {
   return (
@@ -20,7 +19,7 @@ function App() {
                         <Switch>
                           <Route exact path="/">
                             <MediaLibrary></MediaLibrary>
-                              <UploadImage/>
+
                           </Route>
                               {/*<Route path="*">*/}
                               {/*  <NotFound></NotFound>*/}

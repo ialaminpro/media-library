@@ -11,7 +11,7 @@ const Photo = (props) => {
 
                     <img
                         className="card-img-top"
-                        src={thumbnail}
+                        src={image}
                         alt="Card image cap"
                     />
                 </div>
