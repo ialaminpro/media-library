@@ -35,88 +35,93 @@ class PhotoFilter extends React.Component {
         });
     }
 
+    effectChange(name){
+        this.props.action(name);
+    }
+
     render() {
         const {id, name, image} = this.state.photo;
         return (
 
             <div className="row">
-                <div className="col-md-3 col-sm-6 col-12 gallery">
+                <div className="col-md-3 col-sm-6 col-12 gallery" onClick={() => this.effectChange('original')}>
                     <div className="card">
                         <div className="image-gallery">
-                            <img className="card-img-top" src={image} alt="Card image cap"/>
+                            <img className="card-img-top original" src={image} alt="Card image cap"/>
                         </div>
                         <div className=" text-center">
                             <p>Original</p>
                         </div>
                     </div>
                 </div>
-                <div className="col-md-3 col-sm-6 col-12 gallery">
+                <div className="col-md-3 col-sm-6 col-12 gallery" onClick={() => this.effectChange('greyscale')}>
                     <div className="card">
                         <div className="image-gallery">
-                            <img className="card-img-top" src={image} alt="Card image cap"/>
+                            <img className="card-img-top greyscale" src={image} alt="Card image cap"/>
                         </div>
                         <div className=" text-center">
-                            <p>Original</p>
+                            <p>Greyscale</p>
                         </div>
                     </div>
                 </div>
-                <div className="col-md-3 col-sm-6 col-12 gallery">
+                <div className="col-md-3 col-sm-6 col-12 gallery" onClick={() => this.effectChange('sepia')}>
                     <div className="card">
                         <div className="image-gallery">
-                            <img className="card-img-top" src={image} alt="Card image cap"/>
+                            <img className="card-img-top sepia" src={image} alt="Card image cap"/>
                         </div>
                         <div className=" text-center">
-                            <p>Original</p>
+                            <p>Sepia</p>
                         </div>
                     </div>
                 </div>
-                <div className="col-md-3 col-sm-6 col-12 gallery">
+                <div className="col-md-3 col-sm-6 col-12 gallery" onClick={() => this.effectChange('invert')}>
                     <div className="card">
                         <div className="image-gallery">
-                            <img className="card-img-top" src={image} alt="Card image cap"/>
+                            <img className="card-img-top invert" src={image} alt="Card image cap"/>
                         </div>
                         <div className=" text-center">
-                            <p>Original</p>
+                            <p>Invert</p>
                         </div>
                     </div>
                 </div>
-                <div className="col-md-3 col-sm-6 col-12 gallery">
+                <div className="col-md-3 col-sm-6 col-12 gallery" onClick={() => this.effectChange('duotone')}>
                     <div className="card">
                         <div className="image-gallery">
-                            <img className="card-img-top" src={image} alt="Card image cap"/>
+                            <img className="card-img-top duotone" src={image} alt="Card image cap"/>
+
                         </div>
                         <div className=" text-center">
-                            <p>Original</p>
+                            <p>Duotone</p>
                         </div>
                     </div>
                 </div>
-                <div className="col-md-3 col-sm-6 col-12 gallery">
+                <div className="col-md-3 col-sm-6 col-12 gallery" onClick={() => this.effectChange('warm')}>
                     <div className="card">
                         <div className="image-gallery">
-                            <img className="card-img-top" src={image} alt="Card image cap"/>
+                            <img className="card-img-top warm" src={image} alt="Card image cap"/>
                         </div>
                         <div className=" text-center">
-                            <p>Original</p>
+                            <p>Warm</p>
                         </div>
                     </div>
                 </div>
-                <div className="col-md-3 col-sm-6 col-12 gallery">
+                <div className="col-md-3 col-sm-6 col-12 gallery" onClick={() => this.effectChange('cold')}>
                     <div className="card">
                         <div className="image-gallery">
-                            <img className="card-img-top" src={image} alt="Card image cap"/>
+                            <img className="card-img-top cold" src={image} alt="Card image cap"/>
                         </div>
                         <div className=" text-center">
-                            <p>Original</p>
+                            <p>Cool</p>
                         </div>
                     </div>
                 </div>
-                <div className="col-md-3 col-sm-6 col-12 gallery">
+                <div className="col-md-3 col-sm-6 col-12 gallery" onClick={() => this.effectChange('dramatic')}>
                     <div className="card">
                         <div className="image-gallery">
-                            <img className="card-img-top" src={image} alt="Card image cap"/>
+                            <img className="card-img-top dramatic" src={image} alt="Card image cap"/>
                         </div>
                         <div className=" text-center">
-                            <p>Original</p>
+                            <p>Dramatic</p>
                         </div>
                     </div>
                 </div>

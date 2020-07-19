@@ -11,10 +11,18 @@ class PhotoEdit extends React.Component {
         super(props);
         this.state = {
             photo: this.props.location.data,
+            filterVisible: 'original'
         }
         this.goPhotoAdjust = this.goPhotoAdjust.bind(this);
         this.goPhotoFilter = this.goPhotoFilter.bind(this);
         this.goPhotoCrop = this.goPhotoCrop.bind(this);
+        this.filterChange = this.filterChange.bind(this);
+    }
+
+    filterChange(name){
+        this.setState({
+            filterVisible: name
+        });
     }
 
     goPhotoCrop(id, name,image){
@@ -57,10 +65,9 @@ class PhotoEdit extends React.Component {
     }
     render() {
 
-        const { photo } = this.state
+        const { photo, filterVisible } = this.state
         const {id, name, image} = photo;
         const handle  = this.props.match.params.slug
-
         return (
             <div>
                 <div className="main">
@@ -70,7 +77,7 @@ class PhotoEdit extends React.Component {
                     <div className="col-11 col-sm-11 col-md-8  card-area">
                         <div className="col-md-10 m-auto">
                             <div className="top-image">
-                                <img className="card-img-top" src={image} alt="Card image cap"/>
+                                <img className={`card-img-top cover-img ${filterVisible}`}  src={image} alt="Card image cap"/>
                             </div>
                         </div>
                         <div className="col-md-10 card-text">
@@ -86,7 +93,7 @@ class PhotoEdit extends React.Component {
                                 </div>
                             </div>
                             {
-                                handle==='filter'?photo?<PhotoFilter key={photo.id} photo={photo}/>:'':
+                                handle==='filter'?photo?<PhotoFilter action={this.filterChange} key={photo.id} photo={photo}/>:'':
                                 handle==='adjust'?photo?<PhotoAdjust key={photo.id} photo={photo}/>:'':
                                 handle==='crop'?photo?<PhotoCrop key={photo.id} photo={photo}/>:'':''
                             }

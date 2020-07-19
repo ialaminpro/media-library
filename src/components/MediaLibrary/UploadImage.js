@@ -14,15 +14,13 @@ class UploadImage extends Component {
 
 
     handleDrop = files => {
-        // Push all the axios request promise into a single array
         const uploaders = files.map(file => {
             // Initial FormData
             const formData = new FormData();
             formData.append("file", file);
-            formData.append("api_key", "1234567"); // Replace API key with your own Cloudinary key
+            formData.append("api_key", "1234567");
             formData.append("timestamp", (Date.now() / 1000) | 0);
 
-            // Make an AJAX upload request using Axios (replace Cloudinary URL below with your own)
             return axios.post(config.API_UPLOAD_PHOTO_URL, formData, {
                 // headers: { "X-Requested-With": "XMLHttpRequest" },
             }).then(response => {
