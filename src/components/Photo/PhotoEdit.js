@@ -11,26 +11,65 @@ class PhotoEdit extends React.Component {
         super(props);
         this.state = {
             photo: this.props.location.data,
-            filterVisible: 'original',
             contrast: 100,
             exposure: 100,
             tint: 0,
             saturate: 100,
             shadow: 0,
             highlight: 100,
-            warmth: '',
+            warmth: '0',
+            flip: '',
+            transformFlip:'',
+            horizontally:180,
+            vertically:180,
+            filter: '',
+            ration: 50
         }
         this.goPhotoAdjust = this.goPhotoAdjust.bind(this);
         this.goPhotoFilter = this.goPhotoFilter.bind(this);
         this.goPhotoCrop = this.goPhotoCrop.bind(this);
         this.filterChange = this.filterChange.bind(this);
         this.adjust = this.adjust.bind(this);
+        this.flip = this.flip.bind(this);
+        this.rotate = this.rotate.bind(this);
+        this.ratio = this.ratio.bind(this);
     }
 
     filterChange(name){
-        this.setState({
-            filterVisible: name
-        });
+        if(name=='original')  this.setState({filter: 'sepia(0%)'});
+        if(name=='greyscale') this.setState({filter: 'grayscale(100%)'});
+        if(name=='sepia')  this.setState({filter: 'sepia(100%)'});
+        if(name=='invert')  this.setState({filter: 'invert(100%)'});
+        if(name=='duotone') this.setState({filter: 'invert(25%) hue-rotate(180deg) grayscale(100%) sepia(75%)  contrast(150%) saturate(300%) hue-rotate(180deg)'});
+        if(name=='warm') this.setState({filter: 'sepia(50%) contrast(100%) saturate(200%) brightness(100%) hue-rotate(-15deg)'});
+        if(name=='cold') this.setState({filter: 'hue-rotate(180deg) sepia(75%) contrast(150%) saturate(300%) hue-rotate(180deg)'});
+        if(name=='dramatic') this.setState({filter: 'contrast(150%)'});
+
+    }
+
+    rotate(deg){
+        this.setState({transformFlip : `rotate(${deg}deg)`});
+    }
+
+    ratio(percentage){
+        this.setState({ration :percentage});
+    }
+
+    flip(name){
+
+        if(name=='horizontally') {
+            this.setState({transformFlip : `rotateX(0deg) rotateY(${this.state.horizontally}deg)`});
+            if(!this.state.horizontally) this.setState({horizontally:'180'});
+            else this.setState({horizontally: 0})
+
+        }else if(name=='vertically') {
+            this.setState({transformFlip : `rotateY(0deg) rotateX(${this.state.vertically}deg)`});
+            if(!this.state.vertically) this.setState({vertically:'180'});
+            else this.setState({vertically: 0})
+
+        }else if(name=='none') {
+            this.setState({transformFlip : `rotateY(0deg) rotateX(0deg)`});
+        }
     }
     adjust(key,value){
         if(key =='contrast') this.setState({contrast:value});
@@ -82,21 +121,32 @@ class PhotoEdit extends React.Component {
         }
     }
     render() {
-        const { photo, filterVisible, exposure, contrast, saturate, shadow, highlight, warmth, tint } = this.state
+        const { photo, exposure, contrast, saturate, shadow, highlight, warmth, tint, filter,transformFlip, ration } = this.state
         const {id, name, image} = photo;
         const handle  = this.props.match.params.slug
-        let filter
-        if(filterVisible=='original')  filter = 'sepia(0%)';
-        if(filterVisible=='greyscale')  filter = 'greyscale(100%)';
-        if(filterVisible=='sepia')  filter = 'sepia(100%)';
-        if(filterVisible=='invert')  filter = 'invert(100%)';
-        if(filterVisible=='duotone') filter = 'invert(25%) hue-rotate(180deg) grayscale(100%) sepia(75%)  contrast(150%) saturate(300%) hue-rotate(180deg)';
-        if(filterVisible=='warm') filter = 'sepia(50%) contrast(100%) saturate(200%) brightness(100%) hue-rotate(-15deg)';
-        if(filterVisible=='cold') filter = 'hue-rotate(180deg) sepia(75%) contrast(150%) saturate(300%) hue-rotate(180deg)';
-        if(filterVisible=='dramatic') filter = 'contrast(150%)';
+
         let style = {
-            filter: `brightness(${exposure}%) brightness(${highlight}%) sepia(${tint}%) hue-rotate(${tint}deg) sepia(${warmth}%) hue-rotate(${warmth}deg) contrast(${contrast}%) saturate(${saturate}%) grayscale(${shadow}%) ${filter}`
+            transform: `${transformFlip}`,
+            filter: `brightness(${exposure}%)
+                    brightness(${highlight}%)
+                    sepia(${tint}%)
+                    hue-rotate(${tint}deg)
+                    sepia(${warmth}%)
+                    hue-rotate(${warmth}deg)
+                    contrast(${contrast}%)
+                    saturate(${saturate}%)
+                    grayscale(${shadow}%)
+                    ${filter}`,
+            position: 'absolute',
+            left: 0,
+            top: 0,
+            width: '100%',
+            height: '100%'
+
         };
+        let boxStyle = {
+            position: 'relative', paddingBottom: `${ration}%`,
+        }
         return (
             <div>
                 <div className="main">
@@ -105,8 +155,8 @@ class PhotoEdit extends React.Component {
                     </div>
                     <div className="col-11 col-sm-11 col-md-8  card-area">
                         <div className="col-md-10 m-auto">
-                            <div className="top-image">
-                                <img style={style} className={`card-img-top cover-img ${filterVisible}`}  src={image} alt="Card image cap"/>
+                            <div style={boxStyle} className="top-image">
+                                <img style={style} className={`card-img-top cover-img`}  src={image} alt="Card image cap"/>
                             </div>
                         </div>
                         <div className="col-md-10 card-text">
@@ -124,7 +174,7 @@ class PhotoEdit extends React.Component {
                             {
                                 handle==='filter'?photo?<PhotoFilter action={this.filterChange} key={photo.id} photo={photo}/>:'':
                                 handle==='adjust'?photo?<PhotoAdjust action={this.adjust} key={photo.id} photo={photo}/>:'':
-                                handle==='crop'?photo?<PhotoCrop key={photo.id} photo={photo}/>:'':''
+                                handle==='crop'?photo?<PhotoCrop action={this.flip}  rotate={this.rotate} ratio={this.ratio} key={photo.id} photo={photo}/>:'':''
                             }
                         </div>
                     </div>
