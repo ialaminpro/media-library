@@ -49,6 +49,7 @@ class Gallery extends Helper
 			$image = $this->baseUrl().$this->directory . '/' . str_replace('_thumb.', '.', $file);
             $photos[$index] = array(
                             'id' => $index,
+                            'name' => $file,
                             'image' => $image,
                             'thumbnail' => $thumbnail,
                         );

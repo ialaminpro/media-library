@@ -4,34 +4,24 @@ import './App.css';
 import MediaLibrary from './components/MediaLibrary/MediaLibrary';
 import NotFound from './components/NotFound/NotFound';
 import Header from './components/Header/Header';
+import PhotoEdit from "./components/Photo/PhotoEdit";
+import PhotoAdjust from "./components/Photo/PhotoAdjust";
 
 function App() {
   return (
       <div>
           <Header></Header>
-          <div className="main">
-              <div className="col-11 pl-0 pb-3 col-sm-11 col-md-8 m-auto">
-                  <h3>Media Library</h3>
-              </div>
-              <div className="col-11 col-sm-11 col-md-8 m-auto">
-                  <div className="card border-dark mb-3">
-                      <Router>
-                        <Switch>
-                          <Route exact path="/">
-                            <MediaLibrary></MediaLibrary>
-
-                          </Route>
-                              {/*<Route path="*">*/}
-                              {/*  <NotFound></NotFound>*/}
-                              {/*</Route>*/}
-                        </Switch>
-                      </Router>
-
-                  </div>
-              </div>
-          </div>
+          <Router>
+            <Switch>
+              <Route exact path="/">
+                <MediaLibrary></MediaLibrary>
+              </Route>
+              <Route  path="/:slug" component={PhotoEdit} />
+              <Route  path="/:slug" component={PhotoEdit} />
+              <Route  path="/:slug" component={PhotoEdit} />
+            </Switch>
+          </Router>
       </div>
   );
 }
-
 export default App;
