@@ -5,14 +5,13 @@ header("Access-Control-Allow-Methods: PUT, GET, POST");
 require_once('classes/Helper.php');
 require_once('classes/Gallery.php');
 require 'classes/ImageUploader.php';
+require 'classes/ImageManager.php';
 
- $route = Helper::basePath();
-
-
-$gallery = new Gallery();
+$route = Helper::basePath();
 
 if($route == 'gallery'){
 
+    $gallery = new Gallery();
     $gallery->load();
     echo $gallery->render();
 
@@ -20,6 +19,17 @@ if($route == 'gallery'){
 
     $upload = new ImageUploader($_FILES['file']['name'],$_FILES['file']['tmp_name']);
     $upload->startUpload();
+
+}else if($route == 'save'){
+
+    if (!extension_loaded('imagick')){
+        echo 'imagick not installed.';
+    }else{
+
+        $data = json_decode($_POST['data']);
+        $image = new ImageManager($data);
+        $image->save();
+    }
 }
 ?>
 

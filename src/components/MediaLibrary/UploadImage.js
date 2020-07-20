@@ -2,6 +2,8 @@ import React, {useCallback,Component} from 'react';
 import Dropzone from 'react-dropzone';
 import axios from 'axios';
 import config from '../config.json';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 class UploadImage extends Component {
 
@@ -10,6 +12,7 @@ class UploadImage extends Component {
         this.state = {
             files: []
         };
+        toast.configure();
     }
 
 
@@ -24,11 +27,11 @@ class UploadImage extends Component {
             return axios.post(config.API_UPLOAD_PHOTO_URL, formData, {
                 // headers: { "X-Requested-With": "XMLHttpRequest" },
             }).then(response => {
-                const data = response.data;
-                const fileURL = data.secure_url;
                 this.props.action();
-
-            })
+                toast.success("Successfully uploaded!", {position:toast.POSITION.TOP_RIGHT, autoClose: 5000});
+            }).catch(error => {
+                toast.error("Sorry! We could not upload!", {position:toast.POSITION.TOP_RIGHT, autoClose: 5000});
+            });
         });
 
         // Once all the files are uploaded

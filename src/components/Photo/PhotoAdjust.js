@@ -75,7 +75,7 @@ class PhotoAdjust extends React.Component {
                                     </div>
                                     <div className="col-md-7">
                                         <input type="range"
-                                               min="0" max="200"
+                                               min="0" max="100"
                                                className="form-control-range range-width"
                                                value={this.state.exposure}
                                                onChange={this.adjustExposure} />
@@ -117,7 +117,7 @@ class PhotoAdjust extends React.Component {
                                     </div>
                                     <div className="col-md-7">
                                         <input type="range"
-                                               min="0" max="200"
+                                               min="0" max="100"
                                                className="form-control-range range-width"
                                                value={this.state.contrast}
                                                onChange={this.adjustContrast} />
@@ -138,7 +138,7 @@ class PhotoAdjust extends React.Component {
                                     </div>
                                     <div className="col-md-7">
                                         <input type="range"
-                                               min="0" max="200"
+                                               min="0" max="100"
                                                className="form-control-range range-width"
                                                value={this.state.highlight}
                                                onChange={this.adjustHighlight} />
@@ -159,7 +159,7 @@ class PhotoAdjust extends React.Component {
                                     </div>
                                     <div className="col-md-7">
                                         <input type="range"
-                                               min="0" max="200"
+                                               min="0" max="100"
                                                className="form-control-range range-width"
                                                value={this.state.saturate}
                                                onChange={this.adjustSaturate} />
@@ -180,7 +180,7 @@ class PhotoAdjust extends React.Component {
                                     </div>
                                     <div className="col-md-7">
                                             <input type="range"
-                                                   min="0" max="200"
+                                                   min="0" max="100"
                                                    className="form-control-range range-width"
                                                    value={this.state.shadow}
                                                    onChange={this.adjustShadow} />

@@ -6,7 +6,7 @@ class Gallery extends Helper
 	/**
 	 * @var string Directory with photos
 	 */
-    private $directory = 'photos/originals';
+    private $directory = 'photos';
 	/**
 	 * @var int Number of columns in HTML table with thumbnails
 	 */
@@ -27,22 +27,31 @@ class Gallery extends Helper
 
     public function load()
     {
-        $directory = dir($this->directory);
+        $photo = dir($this->directory);
+        $originals = dir($this->directory.'/originals');
 
-        while ($item = $directory->read())
+        while ($item = $photo->read())
         {
 			if (strpos($item, '.'))
 			{
 				$this->files[] = $item;
 			}
         }
-        $directory->close();
+        $photo->close();
+
+        while ($item = $originals->read())
+        {
+            if (strpos($item, '.'))
+            {
+                $this->files[] = 'originals/'.$item;
+            }
+        }
+        $originals->close();
     }
 
 	public function render()
 	{
 	    $photos = array();
-
 		foreach ($this->files as $index => $file)
 		{
 			$thumbnail = $this->baseUrl().$this->directory . '/' . $file;

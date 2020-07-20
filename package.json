@@ -15,6 +15,7 @@
     "react-dropzone": "^11.0.2",
     "react-image": "^4.0.3",
     "react-scripts": "3.4.1",
+    "react-toastify": "^6.0.8",
     "superagent": "^5.3.1"
   },
   "scripts": {

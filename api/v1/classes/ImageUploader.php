@@ -1,4 +1,8 @@
 <?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 
 
 class ImageUploader
@@ -70,4 +74,5 @@ class ImageUploader
     {
         return ( file_exists( $this->uploadTarget . time() . $this->fileName ) );
     }
+
 }

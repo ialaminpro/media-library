@@ -5,6 +5,10 @@ import 'font-awesome/css/font-awesome.min.css';
 import PhotoFilter from "./../Photo/PhotoFilter";
 import PhotoAdjust from "./../Photo/PhotoAdjust";
 import PhotoCrop from "./PhotoCrop";
+import axios from "axios";
+import config from "../config";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 class PhotoEdit extends React.Component {
     constructor(props) {
@@ -13,17 +17,23 @@ class PhotoEdit extends React.Component {
             photo: this.props.location.data,
             contrast: 100,
             exposure: 100,
+            brightness: '',
             tint: 0,
             saturate: 100,
             shadow: 0,
             highlight: 100,
             warmth: '0',
-            flip: '',
+            flip: {
+                'h': 180,
+                'v': 180
+            },
+            ration: 50,
+            rotate: '',
             transformFlip:'',
             horizontally:180,
             vertically:180,
             filter: '',
-            ration: 50
+            filterEffect: ""
         }
         this.goPhotoAdjust = this.goPhotoAdjust.bind(this);
         this.goPhotoFilter = this.goPhotoFilter.bind(this);
@@ -33,22 +43,40 @@ class PhotoEdit extends React.Component {
         this.flip = this.flip.bind(this);
         this.rotate = this.rotate.bind(this);
         this.ratio = this.ratio.bind(this);
+        this.savePhoto = this.savePhoto.bind(this);
+
+        toast.configure();
     }
+    savePhoto(){
 
+        const formData = new FormData();
+        formData.append("data", JSON.stringify(this.state));
+        formData.append("api_key", "1234567");
+        formData.append("timestamp", (Date.now() / 1000) | 0);
+
+        return axios.post(config.API_SAVE_PHOTO_URL, formData, {
+        }).then(response => {
+            const data = response.data;
+            toast.success("Successfully saved!", {position:toast.POSITION.TOP_RIGHT, autoClose: 5000});
+        }).catch(error => {
+            toast.error("Sorry! We could not save!", {position:toast.POSITION.TOP_RIGHT, autoClose: 5000});
+        });
+
+
+    }
     filterChange(name){
-        if(name=='original')  this.setState({filter: 'sepia(0%)'});
-        if(name=='greyscale') this.setState({filter: 'grayscale(100%)'});
-        if(name=='sepia')  this.setState({filter: 'sepia(100%)'});
-        if(name=='invert')  this.setState({filter: 'invert(100%)'});
-        if(name=='duotone') this.setState({filter: 'invert(25%) hue-rotate(180deg) grayscale(100%) sepia(75%)  contrast(150%) saturate(300%) hue-rotate(180deg)'});
-        if(name=='warm') this.setState({filter: 'sepia(50%) contrast(100%) saturate(200%) brightness(100%) hue-rotate(-15deg)'});
-        if(name=='cold') this.setState({filter: 'hue-rotate(180deg) sepia(75%) contrast(150%) saturate(300%) hue-rotate(180deg)'});
-        if(name=='dramatic') this.setState({filter: 'contrast(150%)'});
-
+        if(name=='original')  this.setState({filterEffect: 'original', filter: 'sepia(0%)'});
+        if(name=='greyscale') this.setState({filterEffect: 'grayscale', filter: 'grayscale(100%)'});
+        if(name=='sepia')  this.setState({filterEffect: 'sepia', filter: 'sepia(100%)'});
+        if(name=='invert')  this.setState({filterEffect: 'invert', filter: 'invert(100%)'});
+        if(name=='duotone') this.setState({filterEffect: 'duotone', filter: 'invert(25%) hue-rotate(180deg) grayscale(100%) sepia(75%)  contrast(150%) saturate(300%) hue-rotate(180deg)'});
+        if(name=='warm') this.setState({filterEffect: 'warm', filter: 'sepia(50%) contrast(100%) saturate(200%) brightness(100%) hue-rotate(-15deg)'});
+        if(name=='cold') this.setState({filterEffect: 'cold', filter: 'hue-rotate(180deg) sepia(75%) contrast(150%) saturate(300%) hue-rotate(180deg)'});
+        if(name=='dramatic') this.setState({filterEffect: 'dramatic', filter: 'contrast(150%)'});
     }
 
     rotate(deg){
-        this.setState({transformFlip : `rotate(${deg}deg)`});
+        this.setState({rotate: deg, transformFlip: `rotate(${deg}deg)`});
     }
 
     ratio(percentage){
@@ -58,17 +86,17 @@ class PhotoEdit extends React.Component {
     flip(name){
 
         if(name=='horizontally') {
-            this.setState({transformFlip : `rotateX(0deg) rotateY(${this.state.horizontally}deg)`});
-            if(!this.state.horizontally) this.setState({horizontally:'180'});
-            else this.setState({horizontally: 0})
+            this.setState({ flip : { h : this.state.flip.h, v : 0 }, transformFlip : `rotateX(0deg) rotateY(${this.state.horizontally}deg)`});
+            if(!this.state.horizontally) this.setState({ flip : { h : 180 }, horizontally:'180'});
+            else this.setState({  flip : { h : 0 }, horizontally: 0})
 
         }else if(name=='vertically') {
-            this.setState({transformFlip : `rotateY(0deg) rotateX(${this.state.vertically}deg)`});
-            if(!this.state.vertically) this.setState({vertically:'180'});
-            else this.setState({vertically: 0})
+            this.setState({ flip : { h : 0, v : this.state.flip.v }, transformFlip : `rotateY(0deg) rotateX(${this.state.vertically}deg)`});
+            if(!this.state.vertically) this.setState({flip : { v : 180 }, vertically:'180'});
+            else this.setState({flip : { v : 0 }, vertically: 0})
 
         }else if(name=='none') {
-            this.setState({transformFlip : `rotateY(0deg) rotateX(0deg)`});
+            this.setState({ flip : { h : 0, v : 0 }, transformFlip : `rotateY(0deg) rotateX(0deg)`});
         }
     }
     adjust(key,value){
@@ -185,7 +213,7 @@ class PhotoEdit extends React.Component {
                             <button onClick={() => this.props.history.goBack()} type="button" className="btn btn-outline-dark px-3">Back</button>
                         </div>
                         <div>
-                            <button type="button" className="btn btn-primary px-5">Save</button>
+                            <button type="button" className="btn btn-primary px-5" onClick={() => this.savePhoto()} >Save</button>
                         </div>
                     </div>
                 </footer>

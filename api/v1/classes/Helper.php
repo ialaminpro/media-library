@@ -3,7 +3,24 @@
 
 class Helper
 {
-    public function url(){
+
+
+    public static function getName(){
+
+        return uniqid() . "-" . time();
+    }
+
+    public static function getExt($fileName)
+    {
+        return strtolower( substr( $fileName, strpos( $fileName, "." ), strlen( $fileName ) - 1 ) );
+    }
+
+    public function getUniqueFileName($fileName){
+
+        return self::getName().self::getExt($fileName);
+    }
+
+    public static function url(){
 
         if(isset($_SERVER['HTTPS'])){
             $protocol = ($_SERVER['HTTPS'] && $_SERVER['HTTPS'] != "off") ? "https" : "http";
@@ -54,5 +71,9 @@ class Helper
         }
 
         return "";
+    }
+
+    public static function relatedPath($path){
+        return str_replace(self::baseUrl(),"",$path);
     }
 }
