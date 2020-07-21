@@ -1,6 +1,6 @@
 <?php
 
-require '../../../vendor/autoload.php';
+require '../../vendor/autoload.php';
 use Intervention\Image\ImageManagerStatic as Image;
 
 class ImageManager extends Helper
