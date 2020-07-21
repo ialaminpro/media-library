@@ -184,7 +184,7 @@ class PhotoEdit extends React.Component {
             <div>
                 <div className="main">
                     <div className="col-11 pl-0 pb-3 col-sm-11 col-md-8 m-auto">
-                        <h3>Breker.jpg</h3>
+                        <h3>{name.replace('originals/', '')}</h3>
                     </div>
                     <div className="col-11 col-sm-11 col-md-8  card-area">
                         <div className="col-md-10 m-auto">
@@ -197,9 +197,9 @@ class PhotoEdit extends React.Component {
                                 <div className="card-body">
                                     <div className="col-md-11 col-11 col-sm-11 button-area">
                                         <div className="d-flex  justify-content-between pt-1">
-                                            <a onClick={() => this.goPhotoFilter(id, name,image)} className="btn btn-light px-3"><i className="fa fa-magic"></i> Filter</a>
-                                            <a onClick={() => this.goPhotoAdjust(id, name,image)} className="btn btn-light px-3"><i className="fa fa-adjust"></i> Adjust</a>
-                                            <a onClick={() => this.goPhotoCrop(id, name,image)} className="btn btn-light px-3"><i className="fa fa-crop"></i> Crop</a>
+                                            <a onClick={() => this.goPhotoFilter(id, name,image)} className={`btn btn-light px-3 ${handle=='filter'?'active':''}`}><i className="fa fa-magic"></i> Filter</a>
+                                            <a onClick={() => this.goPhotoAdjust(id, name,image)} className={`btn btn-light px-3 ${handle=='adjust'?'active':''}`}><i className="fa fa-adjust"></i> Adjust</a>
+                                            <a onClick={() => this.goPhotoCrop(id, name,image)} className={`btn btn-light px-3 ${handle=='crop'?'active':''}`}><i className="fa fa-crop"></i> Crop</a>
                                         </div>
                                     </div>
                                 </div>

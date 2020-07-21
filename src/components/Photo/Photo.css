@@ -31,6 +31,7 @@
     border-radius: 5px;
     border: 1px solid #dce3e9;
 }
+
 .gallery .card:hover{
     border: 1px solid rgb(136, 132, 132);
     border-radius: 10px;
@@ -62,4 +63,12 @@
 
 .dramatic{
     filter:  contrast(150%) ;
+}
+img.card-img-top:hover {
+    transform: scale(1.1);
+    cursor: pointer;
+}
+.active{
+    border: 1px solid rgb(136, 132, 132) !important;
+    border-radius: 10px;
 }

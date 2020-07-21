@@ -10,6 +10,7 @@ class PhotoFilter extends React.Component {
         super(props);
         this.state = {
             photo: this.props.photo,
+            selected: 'original'
         }
         this.goPhotoAdjust = this.goPhotoAdjust.bind(this);
         this.goPhotoFilter = this.goPhotoFilter.bind(this);
@@ -36,6 +37,7 @@ class PhotoFilter extends React.Component {
     }
 
     filterChange(name){
+        this.setState({'selected':name});
         this.props.action(name);
     }
 
@@ -44,8 +46,8 @@ class PhotoFilter extends React.Component {
         return (
 
             <div className="row">
-                <div className="col-md-3 col-sm-6 col-12 gallery" onClick={() => this.filterChange('original')}>
-                    <div className="card">
+                <div className="col-md-3 col-sm-6 col-12 gallery " onClick={() => this.filterChange('original')}>
+                    <div className={`card ${this.state.selected=='original'?'active':''}`}>
                         <div className="image-gallery">
                             <img className="card-img-top original" src={image} alt="Card image cap"/>
                         </div>
@@ -55,7 +57,7 @@ class PhotoFilter extends React.Component {
                     </div>
                 </div>
                 <div className="col-md-3 col-sm-6 col-12 gallery" onClick={() => this.filterChange('greyscale')}>
-                    <div className="card">
+                    <div className={`card ${this.state.selected=='greyscale'?'active':''}`}>
                         <div className="image-gallery">
                             <img className="card-img-top greyscale" src={image} alt="Card image cap"/>
                         </div>
@@ -65,7 +67,7 @@ class PhotoFilter extends React.Component {
                     </div>
                 </div>
                 <div className="col-md-3 col-sm-6 col-12 gallery" onClick={() => this.filterChange('sepia')}>
-                    <div className="card">
+                    <div className={`card ${this.state.selected=='sepia'?'active':''}`}>
                         <div className="image-gallery">
                             <img className="card-img-top sepia" src={image} alt="Card image cap"/>
                         </div>
@@ -75,7 +77,7 @@ class PhotoFilter extends React.Component {
                     </div>
                 </div>
                 <div className="col-md-3 col-sm-6 col-12 gallery" onClick={() => this.filterChange('invert')}>
-                    <div className="card">
+                    <div className={`card ${this.state.selected=='invert'?'active':''}`}>
                         <div className="image-gallery">
                             <img className="card-img-top invert" src={image} alt="Card image cap"/>
                         </div>
@@ -85,7 +87,7 @@ class PhotoFilter extends React.Component {
                     </div>
                 </div>
                 <div className="col-md-3 col-sm-6 col-12 gallery" onClick={() => this.filterChange('duotone')}>
-                    <div className="card">
+                    <div className={`card ${this.state.selected=='duotone'?'active':''}`}>
                         <div className="image-gallery">
                             <img className="card-img-top duotone" src={image} alt="Card image cap"/>
 
@@ -96,7 +98,7 @@ class PhotoFilter extends React.Component {
                     </div>
                 </div>
                 <div className="col-md-3 col-sm-6 col-12 gallery" onClick={() => this.filterChange('warm')}>
-                    <div className="card">
+                    <div className={`card ${this.state.selected=='warm'?'active':''}`}>
                         <div className="image-gallery">
                             <img className="card-img-top warm" src={image} alt="Card image cap"/>
                         </div>
@@ -106,7 +108,7 @@ class PhotoFilter extends React.Component {
                     </div>
                 </div>
                 <div className="col-md-3 col-sm-6 col-12 gallery" onClick={() => this.filterChange('cold')}>
-                    <div className="card">
+                    <div className={`card ${this.state.selected=='cold'?'active':''}`}>
                         <div className="image-gallery">
                             <img className="card-img-top cold" src={image} alt="Card image cap"/>
                         </div>
@@ -116,7 +118,7 @@ class PhotoFilter extends React.Component {
                     </div>
                 </div>
                 <div className="col-md-3 col-sm-6 col-12 gallery" onClick={() => this.filterChange('dramatic')}>
-                    <div className="card">
+                    <div className={`card ${this.state.selected=='dramatic'?'active':''}`}>
                         <div className="image-gallery">
                             <img className="card-img-top dramatic" src={image} alt="Card image cap"/>
                         </div>

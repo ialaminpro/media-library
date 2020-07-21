@@ -28,7 +28,7 @@ class Photo extends Component{
                         />
                     </div>
                     <div className="card-footer">
-                        img.jpg
+                        {name.replace('originals/', '')}
                     </div>
                 </div>
             </div>
