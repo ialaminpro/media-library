@@ -29,16 +29,16 @@ class Gallery extends Helper
     {
         $photo = dir($this->directory);
         $originals = dir($this->directory.'/originals');
-
+        $org = array();
         while ($item = $photo->read())
         {
 			if (strpos($item, '.'))
 			{
-				$this->files[] = $item;
+                $this->files[] = $item;
 			}
         }
         $photo->close();
-
+        rsort($this->files);
         while ($item = $originals->read())
         {
             if (strpos($item, '.'))
@@ -51,19 +51,20 @@ class Gallery extends Helper
 
 	public function render()
 	{
-	    $photos = array();
-		foreach ($this->files as $index => $file)
-		{
-			$thumbnail = $this->baseUrl().$this->directory . '/' . $file;
-			$image = $this->baseUrl().$this->directory . '/' . str_replace('_thumb.', '.', $file);
+        $photos = array();
+
+        foreach ($this->files as $index => $file) {
+            $thumbnail = $this->baseUrl() . $this->directory . '/' . $file;
+            $image = $this->baseUrl() . $this->directory . '/' . str_replace('_thumb.', '.', $file);
             $photos[$index] = array(
-                            'id' => $index,
-                            'name' => $file,
-                            'image' => $image,
-                            'thumbnail' => $thumbnail,
-                        );
-		}
-		return json_encode($photos);
+                'id' => $index,
+                'name' => $file,
+                'image' => $image,
+                'thumbnail' => $thumbnail,
+            );
+        }
+        return json_encode($photos);
+
 	}
 
 }

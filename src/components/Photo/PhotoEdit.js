@@ -59,6 +59,9 @@ class PhotoEdit extends React.Component {
             const data = response.data;
             if(data.status){
                 toast.success(data.msg, {position:toast.POSITION.TOP_RIGHT, autoClose: 5000});
+                return this.props.history.push({
+                    pathname: '/',
+                });
             }else{
                 toast.error(data.msg, {position:toast.POSITION.TOP_RIGHT, autoClose: 5000});
             }

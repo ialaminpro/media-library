@@ -66,13 +66,13 @@ class MediaLibrary extends React.Component {
                         <div className="card border-dark mb-3">
                             <div className="row px-5 py-5">
                                 <div className="col-md-12">
-                                    <h6>{photos.length} Items</h6>
+                                    <h6>{typeof photos[0] !== 'undefined' && typeof photos[0].id !== 'undefined'?photos.length:0} Items</h6>
                                 </div>
                                 {
-                                    photos.map(photo => <Photo
+                                    typeof photos[0] !== 'undefined' && typeof photos[0].id !== 'undefined'?photos.map(photo => <Photo
                                         key={photo.id}
                                         photo={photo}>
-                                    </Photo>)
+                                    </Photo>):''
                                 }
                             </div>
                             <UploadImage action={this.updateGallery}/>
