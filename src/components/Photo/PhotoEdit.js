@@ -57,7 +57,12 @@ class PhotoEdit extends React.Component {
         return axios.post(config.API_SAVE_PHOTO_URL, formData, {
         }).then(response => {
             const data = response.data;
-            toast.success("Successfully saved!", {position:toast.POSITION.TOP_RIGHT, autoClose: 5000});
+            if(data.status){
+                toast.success(data.msg, {position:toast.POSITION.TOP_RIGHT, autoClose: 5000});
+            }else{
+                toast.error(data.msg, {position:toast.POSITION.TOP_RIGHT, autoClose: 5000});
+            }
+            //
         }).catch(error => {
             toast.error("Sorry! We could not save!", {position:toast.POSITION.TOP_RIGHT, autoClose: 5000});
         });

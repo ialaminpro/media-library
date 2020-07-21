@@ -23,12 +23,14 @@ if($route == 'gallery'){
 }else if($route == 'save'){
 
     if (!extension_loaded('imagick')){
-        echo 'imagick not installed.';
+        $data = array('status'=>false,'msg'=> 'Imagick not installed.');
+        echo json_encode($data);
     }else{
 
         $data = json_decode($_POST['data']);
         $image = new ImageManager($data);
         $image->save();
+
     }
 }
 ?>

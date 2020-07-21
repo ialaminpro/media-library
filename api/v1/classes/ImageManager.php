@@ -48,7 +48,7 @@ class ImageManager extends Helper
             if (isset($this->data->flip->v) && $this->data->flip->v == 0) $this->img->flip('v');
 
             if ($this->data->rotate) $this->img->rotate($this->data->rotate);
-//
+
             if ($this->data->brightness) $this->img->brightness($this->data->brightness);
 //
 //            if ($this->data->highlight) $this->img->brightness($this->data->highlight);
@@ -61,8 +61,12 @@ class ImageManager extends Helper
 
             $this->img->save('photos/' . $this->getUniqueFileName($this->name));
 
+           $data = array('status'=>true,'msg'=>'Successfully Saved');
+           echo json_encode($data);
+
         }catch (Exception $e){
-            echo $e->getMessage();
+            $data = array('status'=>false,'msg'=> $e->getMessage());
+            echo json_encode($data);
         }
     }
 

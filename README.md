@@ -6,10 +6,10 @@
 `npm install` <br/>
 ## Step-4: Install composer
  `composer install` <br/>
-## Step-6: Run Built-in web server
+## Step-5: Run Built-in web server
 `php -S localhost:8000`
-## Step-5: Run npm
+## Step-6: Run npm
 `npm start`
 
-Note: Image Magick Module is required <br/>
+Note: [imagemagick](https://imagemagick.org/script/download.php) Module is required  <br/>
 PHP >= 7.2.5
