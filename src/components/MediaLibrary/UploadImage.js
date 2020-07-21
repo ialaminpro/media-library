@@ -42,7 +42,7 @@ class UploadImage extends Component {
     render() {
     return (
 
-        <div className="card-footer p-3">
+        <div className="card-footer p-3" style={{backgroundColor: 'aliceblue'}}>
             <div className="row">
                 <div className="col-md-3 pt-3 pl-5">
                     <h6>Upload Image</h6>

@@ -38,7 +38,7 @@ class PhotoCrop extends React.Component {
                     <div className="col-md-11">
                         <div className="row mt-4">
                             <div className="col-md-3">
-                                <button className="btn" style={{backgroudColor:"#ffffff"}}><i className="fa fa-repeat"></i> Flip</button>
+                                <button className="btn" style={{backgroudColor:"#ffffff"}}><i className="fa fa-shield fa-flip-horizontal"></i> Flip</button>
                             </div>
                             <div className="col-md-9">
                                 <button onClick={() => this.flip('none')} type="button" className={`btn btn-outline-secondary mr-2 px-3 ${this.state.flipSelected=='none'?'active':''}`}>None</button>
@@ -64,7 +64,7 @@ class PhotoCrop extends React.Component {
                     <div className="col-md-11">
                         <div className="row mt-4">
                             <div className="col-md-3">
-                                <button className="btn" style={{backgroudColor:"#ffffff"}}><i className="fa fa-repeat"></i> Ratio</button>
+                                <button className="btn" style={{backgroudColor:"#ffffff"}}><i className="fa fa-percent"></i> Ratio</button>
                             </div>
                             <div className="col-md-9">
                                 <button onClick={() => this.ratio(56.25)} type="button" className={`btn btn-outline-secondary mr-2 px-3 ${this.state.ratioSelected==56.25?'active':''}`}>16:9</button>
