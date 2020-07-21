@@ -10,13 +10,10 @@ require 'classes/ImageManager.php';
 $route = Helper::basePath();
 
 if($route == 'gallery'){
-    try{
+
     $gallery = new Gallery();
     $gallery->load();
     echo $gallery->render();
-    }catch (Exception $e){
-
-    }
 
 }else if($route == 'upload'){
 

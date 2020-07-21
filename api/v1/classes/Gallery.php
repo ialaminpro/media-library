@@ -29,7 +29,7 @@ class Gallery extends Helper
     {
         $photo = dir($this->directory);
         $originals = dir($this->directory.'/originals');
-        $org = array();
+
         while ($item = $photo->read())
         {
 			if (strpos($item, '.'))
